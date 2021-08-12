@@ -30,7 +30,7 @@ public class Game {
         try {
             model = new Model(
                     Resource.loadModel("Models/gun.obj"),
-                    new Material(Resource.loadTexture("Textures/gold.png"), 10, 1)
+                    new Material(Resource.loadTexture("Textures/black.png"), 10, 1)
             );
 
             shader = new LitShader("Shaders/lit.glsl");
