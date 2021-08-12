@@ -1,10 +1,10 @@
 package Shader;
 
+import Resource.Resource;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL33;
-import Resource.Resource;
 
 import java.io.FileNotFoundException;
 import java.nio.FloatBuffer;

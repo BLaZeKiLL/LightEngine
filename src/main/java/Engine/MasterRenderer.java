@@ -1,9 +1,9 @@
 package Engine;
 
+import Data.Model;
 import Entities.Camera;
 import Entities.Entity;
 import Entities.Light;
-import Data.Model;
 import Shader.LitShader;
 import org.joml.Vector4f;
 
@@ -19,18 +19,22 @@ public class MasterRenderer {
 
     private final Map<Model, List<Entity>> entities = new HashMap<>();
 
-    public MasterRenderer(Window window, Vector4f bgColorRGBA, LitShader shader) {
+    public MasterRenderer(Window window, LitShader shader, Vector4f bgColorRGBA) {
         this.shader = shader;
         renderer = new Renderer(window, this.shader, bgColorRGBA);
     }
 
     public void render(Light sun, Camera camera) {
         renderer.prepare();
+
         shader.start();
         shader.loadLight(sun);
         shader.loadViewMatrix(camera);
+
         renderer.render(entities);
+
         shader.stop();
+
         entities.clear();
     }
 

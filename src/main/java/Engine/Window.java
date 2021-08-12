@@ -2,7 +2,6 @@ package Engine;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GLUtil;
-import org.lwjgl.system.Callback;
 import org.lwjgl.system.Configuration;
 
 import static org.lwjgl.Version.getVersion;

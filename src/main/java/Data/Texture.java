@@ -1,11 +1,8 @@
 package Data;
 
 import org.lwjgl.opengl.GL33;
-import org.lwjgl.stb.STBImage;
-import org.lwjgl.system.MemoryStack;
 
 import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
 
 public class Texture {
 

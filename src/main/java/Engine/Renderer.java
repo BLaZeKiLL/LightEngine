@@ -1,8 +1,8 @@
 package Engine;
 
-import Entities.Entity;
-import Data.RawModel;
 import Data.Model;
+import Data.RawModel;
+import Entities.Entity;
 import Shader.LitShader;
 import Utils.Maths;
 import org.joml.Matrix4f;

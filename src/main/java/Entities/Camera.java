@@ -36,6 +36,9 @@ public class Camera {
         if (GLFW.glfwGetKey(window.getWindowID(), GLFW.GLFW_KEY_LEFT_CONTROL) == 1) {
             translation.y -= moveSpeed;
         }
+        if (GLFW.glfwGetKey(window.getWindowID(), GLFW.GLFW_KEY_ESCAPE) == 1) {
+            GLFW.glfwSetWindowShouldClose(window.getWindowID(), true);
+        }
     }
 
     public Vector3f getTranslation() {
