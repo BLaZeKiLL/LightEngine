@@ -36,7 +36,7 @@ public class Game {
                     new Material(Resource.loadTexture("Textures/gold.png"), 10, 1)
             );
 
-            shader = new LitShader("Shaders/lit/lit");
+            shader = new LitShader("Shaders/lit.glsl");
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);

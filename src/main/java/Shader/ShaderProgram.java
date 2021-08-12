@@ -12,27 +12,39 @@ import java.nio.FloatBuffer;
 public abstract class ShaderProgram {
 
     private final int programID;
-    private final int vertexShaderID;
-    private final int fragmentShaderID;
+    private int vertexShaderID;
+    private int fragmentShaderID;
 
     private static final FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
 
-    public ShaderProgram(String vertexFile, String fragmentFile) throws FileNotFoundException {
-        vertexShaderID = Resource.loadShader(vertexFile, GL33.GL_VERTEX_SHADER);
-        fragmentShaderID = Resource.loadShader(fragmentFile, GL33.GL_FRAGMENT_SHADER);
+    public ShaderProgram(String path) throws FileNotFoundException {
+        var shaderProgram = Resource.loadShader(path);
+
+        shaderProgram.forEach((type, ID) ->  {
+            switch (type) {
+                case GL33.GL_VERTEX_SHADER:
+                    vertexShaderID = ID;
+                    break;
+                case GL33.GL_FRAGMENT_SHADER:
+                    fragmentShaderID = ID;
+                    break;
+            }
+        });
 
         programID = GL33.glCreateProgram();
         GL33.glAttachShader(programID, vertexShaderID);
         GL33.glAttachShader(programID, fragmentShaderID);
 
-        bindAttributes();
         GL33.glLinkProgram(programID);
         GL33.glValidateProgram(programID);
 
+        bindAttributes();
         getAllUniformLocations();
     }
 
     protected abstract void getAllUniformLocations();
+
+    protected abstract void bindAttributes();
 
     protected int getUniformLocation(String uniformName) {
         return GL33.glGetUniformLocation(programID, uniformName);
@@ -54,8 +66,6 @@ public abstract class ShaderProgram {
         // JOML is nice so no need to flip :)
         GL33.glUniformMatrix4fv(location, false, matrix.get(matrixBuffer));
     }
-
-    protected abstract void bindAttributes();
 
     protected void bindAttribute(int attribute, String variableName) {
         GL33.glBindAttribLocation(programID, attribute, variableName);

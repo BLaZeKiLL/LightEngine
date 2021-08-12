@@ -8,6 +8,7 @@ import Resource.Loader.ShaderLoader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Objects;
 
 public class Resource {
@@ -26,8 +27,8 @@ public class Resource {
         context.cleanUp();
     }
 
-    public static int loadShader(String path, int type) throws FileNotFoundException {
-        return ShaderLoader.loadShader(load(path), type);
+    public static Map<Integer, Integer> loadShader(String path) throws FileNotFoundException {
+        return ShaderLoader.loadShader(load(path));
     }
 
     public static int loadTexture(String path) throws IOException {

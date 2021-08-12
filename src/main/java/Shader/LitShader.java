@@ -2,7 +2,7 @@ package Shader;
 
 import Entities.Camera;
 import Entities.Light;
-import ToolBox.Maths;
+import Utils.Maths;
 import org.joml.Matrix4f;
 
 import java.io.FileNotFoundException;
@@ -18,7 +18,7 @@ public class LitShader extends ShaderProgram {
     private int location_specularity;
 
     public LitShader(String path) throws FileNotFoundException {
-        super(path + ".vert", path + ".frag");
+        super(path);
     }
 
     @Override

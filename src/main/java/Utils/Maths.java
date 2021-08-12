@@ -1,4 +1,4 @@
-package ToolBox;
+package Utils;
 
 import Entities.Camera;
 import org.joml.Math;

@@ -4,7 +4,7 @@ import Entities.Entity;
 import Data.RawModel;
 import Data.Model;
 import Shader.LitShader;
-import ToolBox.Maths;
+import Utils.Maths;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL33;

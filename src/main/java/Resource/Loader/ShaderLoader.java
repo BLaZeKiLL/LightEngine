@@ -3,17 +3,37 @@ package Resource.Loader;
 import org.lwjgl.opengl.GL33;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ShaderLoader {
 
-    public static int loadShader(InputStream stream, int type) {
-        StringBuilder shaderSource = new StringBuilder();
+    private static final String VERTEX_SOURCE = "#VERTEX";
+    private static final String FRAGMENT_SOURCE = "#FRAGMENT";
+
+    public static Map<Integer, Integer> loadShader(InputStream stream) {
+        Map<Integer, StringBuilder> shaderSource = new HashMap<>();
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             String line;
+
+            int type = -1;
+
             while ((line = reader.readLine()) != null) {
-                shaderSource.append(line).append("\n");
+                switch (line) {
+                    case VERTEX_SOURCE:
+                        type = GL33.GL_VERTEX_SHADER;
+                        shaderSource.put(type, new StringBuilder());
+                        break;
+                    case FRAGMENT_SOURCE:
+                        type = GL33.GL_FRAGMENT_SHADER;
+                        shaderSource.put(type, new StringBuilder());
+                        break;
+                    default:
+                        shaderSource.get(type).append(line).append("\n");
+                        break;
+                }
             }
         } catch (IOException e) {
             System.err.println("Could not read the file");
@@ -21,18 +41,24 @@ public class ShaderLoader {
             System.exit(-1);
         }
 
-        int shaderID = GL33.glCreateShader(type);
+        Map<Integer, Integer> shaderProgram = new HashMap<>();
 
-        GL33.glShaderSource(shaderID, shaderSource);
-        GL33.glCompileShader(shaderID);
+        shaderSource.forEach((type, source) -> {
+            int ID = GL33.glCreateShader(type);
 
-        if (GL33.glGetShaderi(shaderID, GL33.GL_COMPILE_STATUS) == GL33.GL_FALSE) {
-            System.out.println(GL33.glGetShaderInfoLog(shaderID, 500));
-            System.err.println("Could not compile shader.");
-            System.exit(-1);
-        }
+            GL33.glShaderSource(ID, source);
+            GL33.glCompileShader(ID);
 
-        return shaderID;
+            if (GL33.glGetShaderi(ID, GL33.GL_COMPILE_STATUS) == GL33.GL_FALSE) {
+                System.out.println(GL33.glGetShaderInfoLog(ID, 500));
+                System.err.println("Could not compile shader.");
+                System.exit(-1);
+            }
+
+            shaderProgram.put(type, ID);
+        });
+
+        return shaderProgram;
     }
 
 }
