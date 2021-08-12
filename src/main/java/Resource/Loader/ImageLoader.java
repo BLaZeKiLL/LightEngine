@@ -1,6 +1,7 @@
-package Resource;
+package Resource.Loader;
 
 import Data.Texture;
+import Resource.GLContext;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL33;
 import org.lwjgl.stb.STBImage;
@@ -13,7 +14,7 @@ import java.nio.IntBuffer;
 
 public class ImageLoader {
 
-    public static int loadTexture(InputStream stream, GlLoader loader) throws IOException {
+    public static int loadTexture(InputStream stream, GLContext loader) throws IOException {
         ByteBuffer image;
         int width, height;
 

@@ -1,6 +1,9 @@
 package Resource;
 
 import Data.RawModel;
+import Resource.Loader.ImageLoader;
+import Resource.Loader.OBJLoader;
+import Resource.Loader.ShaderLoader;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,18 +12,18 @@ import java.util.Objects;
 
 public class Resource {
 
-    private static GlLoader loader;
+    private static GLContext context;
 
     public static void initialize() {
-        loader = new GlLoader();
+        context = new GLContext();
     }
 
-    public static GlLoader getLoader() {
-        return loader;
+    public static GLContext getContext() {
+        return context;
     }
 
     public static void cleanUp() {
-        loader.cleanUp();
+        context.cleanUp();
     }
 
     public static int loadShader(String path, int type) throws FileNotFoundException {
@@ -28,11 +31,11 @@ public class Resource {
     }
 
     public static int loadTexture(String path) throws IOException {
-        return ImageLoader.loadTexture(load(path), loader);
+        return ImageLoader.loadTexture(load(path), context);
     }
 
     public static RawModel loadModel(String path) throws FileNotFoundException {
-        return OBJLoader.loadOBJ(load(path), loader);
+        return OBJLoader.loadOBJ(load(path), context);
     }
 
     public static String path(String path) {

@@ -1,6 +1,7 @@
-package Resource;
+package Resource.Loader;
 
 import Data.RawModel;
+import Resource.GLContext;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class OBJLoader {
 
-    public static RawModel loadOBJ(InputStream stream, GlLoader loader) {
+    public static RawModel loadOBJ(InputStream stream, GLContext loader) {
         InputStreamReader fileReader = new InputStreamReader(stream);
         BufferedReader reader = new BufferedReader(fileReader);
 

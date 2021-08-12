@@ -1,4 +1,4 @@
-package Resource;
+package Resource.Loader;
 
 import org.lwjgl.opengl.GL33;
 
